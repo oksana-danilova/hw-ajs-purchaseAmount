@@ -12,19 +12,12 @@ export default class Cart {
     }
 
     price(discount: number): number {
-        let priceSum: number = 0;
-        this.items.forEach((e) => {
-            priceSum = priceSum + e.price
-        });
+        const priceSum: number = this.items.reduce((accum, item) => accum + item.price, 0);
         return discount < 1 && discount > 0 ? priceSum - priceSum * Number(discount) : priceSum;
     }
 
     delete(id: number): void {
-      this.items.forEach((e) => {
-        if (e.id === id) {
-          this._items.splice(this.items.indexOf(e), 1);
-        }
-      });
+        this._items = this.items.filter(e => e.id !== id);
     }
 
 }
